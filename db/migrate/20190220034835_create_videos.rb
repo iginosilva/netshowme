@@ -1,0 +1,14 @@
+class CreateVideos < ActiveRecord::Migration[5.2]
+  def change
+    create_table :videos do |t|
+      t.string :title
+      t.text :description
+      t.string :url
+      t.boolean :active, default: true
+      t.references :channel, foreign_key: true
+      t.references :user, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end

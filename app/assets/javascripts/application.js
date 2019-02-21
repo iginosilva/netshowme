@@ -17,3 +17,10 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require video
+
+
+$(document).ready(function () {
+  var player = videojs('my-video');
+  player.play();
+});

@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @video.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @video.description %>
+</p>
+
+
+<video id='my-video' class='video-js' controls preload='auto' width='640' height='300'
+  poster='<%= url_for(@video.thumbnail) %>' data-setup='{}'>
+  <source
+     src="<%= url_for(@video.clip) %>">
+</video>
+
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= image_tag(@video.thumbnail, width: "300") %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @video.url %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @video.active %>
+</p>
+
+<p>
+  <strong>Channel:</strong>
+  <%= @video.channel.title %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @video.user.email %>
+</p>
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>
