@@ -20,7 +20,32 @@
 //= require video
 
 
+var sendViewCount = function() {
+  var video = { view_count: 1 };
+  var video_json_data = JSON.stringify({video});
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('PATCH', '/api/v1/videos/' + $("#video-id").attr("value"), true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function () {
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      var request_response = JSON.parse(xhr.responseText);
+      console.log(request_response);
+      $("#view_count").text(request_response["view_count"] + " visualizações");
+    } else {
+      console.log(request_response);
+    }
+  };
+  xhr.send(video_json_data);
+}
+
+
 $(document).ready(function () {
-  var player = videojs('my-video');
-  player.play();
+  if ( window.location.pathname.includes("/show-video") && $('#my-video').length === 1 ) {
+    var player = videojs('my-video');
+    player.play();
+    player.on('play', function () {
+      sendViewCount();
+    });
+  } 
 });

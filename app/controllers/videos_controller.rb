@@ -1,10 +1,12 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :require_permission, only: [:show, :edit, :update, :destroy]
 
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.where(user_id: current_user.id)
   end
 
   # GET /videos/1
@@ -28,7 +30,7 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
+        format.html { redirect_to @video, notice: 'Vídeo criado com sucesso.' }
         format.json { render :show, status: :created, location: @video }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class VideosController < ApplicationController
   def update
     respond_to do |format|
       if @video.update(video_params)
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
+        format.html { redirect_to @video, notice: 'Vídeo atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @video }
       else
         format.html { render :edit }
@@ -56,12 +58,18 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to videos_url, notice: 'Vídeo excluído com sucesso.' }
       format.json { head :no_content }
     end
   end
 
   private
+    def require_permission
+      if current_user.id != @video.user_id
+        redirect_to root_path, notice: "Você não tem permissão para acessar este vídeo."
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_video
       @video = Video.find(params[:id])
@@ -69,6 +77,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:title, :description, :url, :active, :channel_id, :user_id, :clip, :thumbnail)
+      params.require(:video).permit(:title, :description, :url, :active, :user_id, :view_count, :thumbnail)
     end
 end

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <%= link_to "Netshow", root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to root_path, class: "nav-link" do %>
+          Home <span class="sr-only">(current)</span></a>
+        <% end %>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <% if user_signed_in? %>
+            Olá,
+            <%= current_user.email %>
+          <% else %>
+            Minha conta
+          <% end %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% if user_signed_in? %>
+            <%= link_to('Meus vídeos', videos_path, class: "dropdown-item")  %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Sair', destroy_user_session_path, method: :delete, class: "dropdown-item") %>
+          <% else %>
+            <%= link_to('Entrar', new_user_session_path, class: "dropdown-item")  %>
+            <%= link_to('Criar conta', new_user_registration_path, class: "dropdown-item") %>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

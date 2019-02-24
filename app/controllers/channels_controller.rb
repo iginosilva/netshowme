@@ -29,7 +29,7 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       if @channel.save
-        format.html { redirect_to @channel, notice: 'Channel was successfully created.' }
+        format.html { redirect_to @channel, notice: 'Canal criado com sucesso.' }
         format.json { render :show, status: :created, location: @channel }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ChannelsController < ApplicationController
   def update
     respond_to do |format|
       if @channel.update(channel_params)
-        format.html { redirect_to @channel, notice: 'Channel was successfully updated.' }
+        format.html { redirect_to @channel, notice: 'Canal atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @channel }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class ChannelsController < ApplicationController
   def destroy
     @channel.destroy
     respond_to do |format|
-      format.html { redirect_to channels_url, notice: 'Channel was successfully destroyed.' }
+      format.html { redirect_to channels_url, notice: 'Canal excluído com sucesso.' }
       format.json { head :no_content }
     end
   end

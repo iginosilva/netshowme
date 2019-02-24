@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_035638) do
+ActiveRecord::Schema.define(version: 2019_02_24_034918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,16 +64,15 @@ ActiveRecord::Schema.define(version: 2019_02_20_035638) do
     t.text "description"
     t.string "url"
     t.boolean "active", default: true
-    t.bigint "channel_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["channel_id"], name: "index_videos_on_channel_id"
+    t.integer "view_count", default: 0
+    t.string "thumbnail"
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "channels", "users"
-  add_foreign_key "videos", "channels"
   add_foreign_key "videos", "users"
 end

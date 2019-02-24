@@ -1,4 +1,16 @@
-<div class="container">
-  <h1>Home#index</h1>
-  <p>Find me in app/views/home/index.html.erb</p>
+
+<div class="row">
+  <% @videos.each do |video|%>
+    <%= link_to show_video_path(video), data: { turbolinks: false } do %>
+      <div class="col-sm-4 my-2">
+        <div class="card" style="width: 18rem;">
+          <%= image_tag(video.thumbnail, class: "card-img-top", class: "card-img-top") %>
+          <div class="card-body text-center">
+            <p class="card-text h4 mb-3"><%= video.title %></p>
+            <span class="badge badge-pill badge-primary"><%= video.view_count %> visualizações</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>

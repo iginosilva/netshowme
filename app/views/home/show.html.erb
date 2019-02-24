@@ -2,7 +2,7 @@
   <%= @video.title %>
 </h1>
 
-<span class="badge badge-pill badge-primary"><%= @video.view_count %> visualizações</span>
+<span class="badge badge-pill badge-primary", id= "view_count"><%= @video.view_count %> visualizações</span>
 
 <div class="d-none", id="video-id", value= "<%= params[:id] %>" ></div>
 
@@ -12,7 +12,3 @@
      src="<%= @video.url %>"
      type='application/x-mpegURL'>
 </video>
-
-
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>

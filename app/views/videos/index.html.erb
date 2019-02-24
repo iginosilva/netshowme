@@ -1,37 +1,48 @@
-<p id="notice"><%= notice %></p>
+<h1 class="border-bottom">
+  Meus vídeos
+</h1>
 
-<h1>Videos</h1>
+<div class="row">
+  <% @videos.each do |video| %>
+    <div class="col-sm-4">
+      <div class="card" style="width: 18rem;">
+        <%= image_tag("#{video.thumbnail}", class: "card-img-top") %>
+        <div class="card-body text-center">
+          <p class="card-text bold h5"><%= video.title %></p>
+          <%= link_to video, data: { turbolinks: false } do %>
+            <button type="button" class="btn btn-secondary">Ver</button>
+          <% end %>
+          <%= link_to edit_video_path(video) do %>
+            <button type="button" class="btn btn-secondary">Editar</button>
+          <% end %>
+          <%= link_to video, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <button type="button" class="btn btn-secondary">Excluir</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Url</th>
-      <th>Active</th>
-      <th>Channel</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= link_to new_video_path do %>
+  <button type="button" class="btn btn-primary btn-lg btn-block">Novo vídeo</button>
+<% end %>
 
-  <tbody>
-    <% @videos.each do |video| %>
-      <tr>
-        <td><%= video.title %></td>
-        <td><%= video.description %></td>
-        <td><%= video.url %></td>
-        <td><%= video.active %></td>
-        <td><%= video.channel %></td>
-        <td><%= video.user %></td>
-        <td><%= link_to 'Show', video %></td>
-        <td><%= link_to 'Edit', edit_video_path(video) %></td>
-        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Video', new_video_path %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
