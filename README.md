@@ -1,24 +1,31 @@
-# README
+# Netshow App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aplicação Rails que gerencia e exibe vídeos a partir de arquivos m3u8.
 
-Things you may want to cover:
+Crie uma conta, e comece a cadastrar seus videos.
 
-* Ruby version
+## Requisitos
 
-* System dependencies
+- Ruby 2.5.1
 
-* Configuration
+- Rails 5.2.0
 
-* Database creation
+- Postgresql
 
-* Database initialization
+## Instalação
 
-* How to run the test suite
+- Clone o projeto :
 
-* Services (job queues, cache servers, search engines, etc.)
+  git clone https://github.com/iginosilva/netshowme
 
-* Deployment instructions
+- Entre no diretório do projeto e execute o bundle para o baixar as dependências do rails:
 
-* ...
+  cd netshowm
+
+  bundle
+
+## Execução
+
+- Ligue o servidor Rails:
+
+   rails s
