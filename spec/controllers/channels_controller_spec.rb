@@ -28,18 +28,33 @@ RSpec.describe ChannelsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Channel. As you add validations to Channel, be sure to
   # adjust the attributes here as well.
+
+  let(:user) {
+    User.create(email: "senhordoteste@email.com", password: "123456", password_confirmation: "123456")
+  }
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      title: "Senhor do Teste",
+      description: "Esse canal é legal!",
+      slug: "senhordoteste",
+      active: true,
+      user_id: user.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      title: "Senhor do Teste",
+      description: "Esse canal é legal!",
+      active: true
+    }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ChannelsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { sign_in user }
 
   describe "GET #index" do
     it "returns a success response" do
@@ -97,14 +112,22 @@ RSpec.describe ChannelsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          title: "Senhor dos Testes",
+          description: "Esse canal é irado!",
+          slug: "senhordostestes",
+          active: true,
+          user_id: user.id
+        }
       }
 
       it "updates the requested channel" do
         channel = Channel.create! valid_attributes
         put :update, params: {id: channel.to_param, channel: new_attributes}, session: valid_session
         channel.reload
-        skip("Add assertions for updated state")
+        expect(channel.title).to eq("Senhor dos Testes")
+        expect(channel.description).to eq("Esse canal é irado!")
+        expect(channel.slug).to eq("senhordostestes")
       end
 
       it "redirects to the channel" do
@@ -118,7 +141,7 @@ RSpec.describe ChannelsController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         channel = Channel.create! valid_attributes
         put :update, params: {id: channel.to_param, channel: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response.status).to eq(302)
       end
     end
   end

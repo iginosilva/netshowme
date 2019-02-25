@@ -28,18 +28,35 @@ RSpec.describe VideosController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Video. As you add validations to Video, be sure to
   # adjust the attributes here as well.
+  let(:user) {
+    User.create(email: "senhordoteste@email.com", password: "123456", password_confirmation: "123456")
+  }
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      title: "Andando de Bike",
+      description: "Bicicletas são legais",
+      url: "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
+      thumbnail: "https://placeimg.com/300/200/tech",
+      active: true,
+      user_id: user.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      description: "Bicicletas são legais",
+      url: "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
+      thumbnail: "https://placeimg.com/300/200/tech",
+      active: true,
+      user_id: user.id
+    }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # VideosController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { sign_in user }
 
   describe "GET #index" do
     it "returns a success response" do
@@ -97,14 +114,22 @@ RSpec.describe VideosController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          title: "Pedalando na Bike",
+          description: "Bicicletas e esportes",
+          url: "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
+          thumbnail: "https://placeimg.com/300/200/tech",
+          active: true,
+          user_id: user.id
+        }
       }
 
       it "updates the requested video" do
         video = Video.create! valid_attributes
         put :update, params: {id: video.to_param, video: new_attributes}, session: valid_session
         video.reload
-        skip("Add assertions for updated state")
+        expect(video.title).to eq("Pedalando na Bike")
+        expect(video.description).to eq("Bicicletas e esportes")
       end
 
       it "redirects to the video" do
@@ -118,7 +143,7 @@ RSpec.describe VideosController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         video = Video.create! valid_attributes
         put :update, params: {id: video.to_param, video: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response.status).to eq(302)
       end
     end
   end
