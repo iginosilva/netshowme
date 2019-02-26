@@ -20,7 +20,7 @@ Crie uma conta, e comece a cadastrar seus videos.
 
 - Entre no diretório do projeto e execute o bundle para o baixar as dependências do rails:
 
-  cd netshowm
+  cd netshowme
 
   bundle
 
